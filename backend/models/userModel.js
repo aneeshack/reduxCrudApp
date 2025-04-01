@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs';
+// import { updateUserProfile } from "../controllers/userController";
 
 const userSchema = mongoose.Schema(
   {
@@ -10,6 +11,7 @@ const userSchema = mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique:true
     },
     password: {
       type: String,

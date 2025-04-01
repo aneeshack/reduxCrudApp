@@ -32,6 +32,7 @@ const Dashboard = () => {
   const [isModalOpenAdd, setModalOpenAdd] = useState(false);
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
 
+
   const debounceValue = useDebounce(search, 500);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ const Dashboard = () => {
     const fetchUser = async () => {
       try {
         console.log("searcha", debounceValue);
+        
         const response = await axios.get(
           `/api/admin/fetchUserAdmin${
             debounceValue ? `?search=${debounceValue}` : ""
@@ -202,7 +204,9 @@ const Dashboard = () => {
       
       <div className=" m-40  w-3/4 ">
         <div className="flex items-center justify-between"> 
+        
         <h1 className="font-bold text-3xl m-10  text-violet-950">USER  INFORMATION</h1>
+        
           <button
             className="bg-sky-500  hover:bg-gradient-to-r from-sky-700 to-indigo-900 text-white px-4 py-2 mr-10 rounded hover:bg-green-600"
             onClick={() => setModalOpenAdd(true)}

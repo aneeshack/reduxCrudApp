@@ -1,29 +1,6 @@
 import User from '../models/userModel.js'
 // import generateToken from '../utils/generateToken.js';
 
-
-// const login = async (req, res) => {
-//     try {
-//         const { email, password } = req.body
-//     console.log('email',email)
-//     if (!email || !password) {
-//         res.status(400).json({ message: "Email and password are required" });
-//         return;
-//     }
-//     const admin = await User.findOne({email});
-//     console.log('admin found:',admin)
-//     if(admin && (await admin.matchPassword(password))){
-//         generateToken(res, admin._id)
-//         res.status(201).json({success:true,admin}
-//         )
-//     }else{
-//         res.status(401).json({ message:'invalid email or password'})
-//     }
-//     } catch (error) {
-//         res.status(401).json({error:error})
-//         console.log('login user error:',error)
-//     }
-// }
  
 const fetchUserData = async(req, res) => {
     try {
