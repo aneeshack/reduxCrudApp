@@ -8,7 +8,6 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import defaultImage from '../assets/profile_image.avif'
 import { editProfileValidationSchema } from "../FormValidation/ProfileValidation";
 import { CustomImageFileInput } from "../components/ImageField";
-import { ImageUpload } from "../utilsCloudinary/ImageUpload";
 
 
 interface fromType {

@@ -225,7 +225,7 @@ const Dashboard = () => {
           </thead>
           <tbody>
             {userData.length > 0 ? (
-              userData.map((user: any, index: number) => (
+              userData.map((user: any,) => (
                 <tr key={user._id} className="border-b border-sky-200">
                   <td className="px-16">{user.name} </td>
                   <td className="px-16"> {user.email}</td>

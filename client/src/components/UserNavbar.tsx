@@ -9,7 +9,7 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const userName = useSelector((state:Rootstate)=> state.UserData.userData?.name)
+    const userName = useSelector((state:Rootstate)=> state.UserData.userData?.name )
 
     const handleLogout = async()=>{
         try {
