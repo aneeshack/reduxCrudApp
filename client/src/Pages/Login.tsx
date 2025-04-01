@@ -57,7 +57,9 @@ const Login = () => {
   }
   
   return (
-    <div className="flex justify-center  items-center h-screen bg-linear-gradient(#0000007e, #0000007e) bg-[url('download2.jpg')] bg-cover ">
+    <div className="flex justify-center items-center h-screen bg-linear-gradient(#0000007e, #0000007e) bg-[url('/download2.jpg')] bg-cover">
+
+    {/* <div className="flex justify-center  items-center h-screen bg-linear-gradient(#0000007e, #0000007e) bg-[url('download2.jpg')] bg-cover "> */}
       <div className=" bg-opacity-50  border-2 hover:ring-8 hover:ring-red-500 hover:border-none bg-gray-900 h-5/6  w-1/4 min-w-96 rounded-md text-white ">
         <h1 className="flex justify-center text-3xl font-bold p-16">
           Sign In
