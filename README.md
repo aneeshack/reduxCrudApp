@@ -6,7 +6,7 @@ This is a full-stack CRUD (Create, Read, Update, Delete) application built using
 
 Features
 
-User Features:
+User Feature:
 
 Signup and Login
 
