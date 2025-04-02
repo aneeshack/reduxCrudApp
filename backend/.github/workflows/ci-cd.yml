@@ -1,4 +1,4 @@
-name: Deploy Backend to Google Cloud
+name: Deploy Backend to Google Cloud Run
 
 on:
   push:
@@ -13,26 +13,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Authenticate with Google Cloud
-        uses: google-github-actions/auth@v1
-        with:
-          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+      - name: Build and Push Docker Image to Docker Hub
+        run: |
+          docker build -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest .
+          docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
 
-      - name: Configure Docker for Google Cloud
-        run: gcloud auth configure-docker gcr.io
-
-      - name: Build and Push Docker Image
-        run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/mern-backend:latest .
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/mern-backend:latest
-
-      - name: Deploy to Google Cloud Run
+      - name: Deploy to Google Cloud Run from Docker Hub
         run: |
           gcloud run deploy mern-backend \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/mern-backend:latest \
+            --image docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated \
