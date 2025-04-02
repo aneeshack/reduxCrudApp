@@ -18,18 +18,19 @@ jobs:
 
       - name: Build and Push Docker Image to Docker Hub
         run: |
-          docker build -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest .
-          docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
+          docker build -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/mern-crud-app:latest .
+          docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/mern-crud-app:latest
 
       - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
 
       - name: Deploy to Google Cloud Run from Docker Hub
         run: |
-          gcloud run deploy mern-backend \
-            --image docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest \
+          gcloud run deploy mern-crud-app \
+            --image docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/mern-crud-app:latest \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated \
             --port 8000 \
             --set-env-vars NODE_ENV=production
+            --project ${{ secrets.GCP_PROJECT_ID }}
