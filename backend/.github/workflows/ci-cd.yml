@@ -1,0 +1,40 @@
+name: Deploy Backend to Google Cloud
+
+on:
+  push:
+    branches:
+      - deploy  # Runs only when changes are pushed to the 'deploy' branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Configure Docker for Google Cloud
+        run: gcloud auth configure-docker gcr.io
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/mern-backend:latest .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/mern-backend:latest
+
+      - name: Deploy to Google Cloud Run
+        run: |
+          gcloud run deploy mern-backend \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/mern-backend:latest \
+            --platform managed \
+            --region us-central1 \
+            --allow-unauthenticated \
+            --port 8000 \
+            --set-env-vars NODE_ENV=production
