@@ -4,6 +4,7 @@ import User from '../models/userModel.js'
  
 const fetchUserData = async(req, res) => {
     try {
+      
         console.log('fetch user data')
         const { search } = req.query;
         let query  = {role: {$ne: 'Admin'}};
