@@ -1,4 +1,4 @@
-echo "# Testing CI/CD workflow" >> README.md
+
 MERN Stack CRUD Application
 
 Overview
